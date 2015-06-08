@@ -28,8 +28,7 @@ Whatever the Weather
 
 	Whatever the Weather - Default Directory Structure:
 		Whatever the Weather
-		|-------html
-		|        |-------wtw.html
+		|-------index.html
 		|
 		|-------resource
 		|        |-------api_key.txt
