@@ -1,0 +1,101 @@
+<!-- wtw.html -->
+<!-- Author: David Frye -->
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<!-- Page metadata -->
+		<meta charset="utf-8">
+		<title>Whatever the Weather</title>
+
+		<!-- QUnit CSS -->
+		<!-- <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.18.0.css"> -->
+		<!-- Google Fonts -->
+		<link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+		<!-- Favicon -->
+		<link href="resource/favicon.png" rel="icon" type="image/png">
+		<!-- Whatever the Weather -->
+		<link href="style/wtw.css" rel="stylesheet" type="text/css">
+
+		<!-- QUnit JS -->
+		<!-- <script src="//code.jquery.com/qunit/qunit-1.18.0.js"></script> -->
+		<!-- jQuery -->
+		<script src="//code.jquery.com/jquery-2.1.1.min.js" type="application/javascript"></script>
+		<!-- Google Maps API -->
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=false"></script>
+		<!-- Chart.js -->
+		<script src="script/chart.min.js"></script>
+		<!-- Modernizr.js -->
+		<script src="script/modernizr.js"></script>
+		<!-- Whatever the Weather -->
+		<script src="script/wtw.js" type="application/javascript"></script>
+		<!-- Whatever the Weather test -->
+		<script src="script/wtw_test.js" type="application/javascript"></script>
+	</head>
+
+	<body>
+		<!-- Main page header -->
+		<header id="header">Whatever the Weather</header>
+
+		<!-- Visual chart and associated information and controls-->
+		<div id="container_forecast_chart">
+
+			<!-- Visual chart (courtesy of Chart.js) -->
+			<canvas id="forecast_chart"></canvas>
+
+			<!-- Forecast header contains the forecast place and forecast summary labels atop the visual chart -->
+			<div id="forecast_header">
+				<!-- Place label -->
+				<p id="forecast_place"><strong>Place</strong></p>
+
+				<!-- Forecast summary label -->
+				<p id="forecast_summary"><strong>Forecast Summary</strong></p>
+			</div>
+
+			<!-- Display mode controls -->
+			<ul id="display_mode_list">
+				<button id="display_mode_temperature" class="display_mode" value="temperature">Temperature</button>
+				<button id="display_mode_precipitation" class="display_mode" value="precipitation">Precipitation</button>
+				<button id="display_mode_wind" class="display_mode" value="wind">Wind</button>
+			</ul>
+
+			<!-- Range mode controls -->
+			<ul id="range_mode_list">
+				<button id="range_mode_hourly" class="range_mode" value="hourly">Hourly</button>
+				<button id="range_mode_daily" class="range_mode" value="daily">Daily</button>
+			</ul>
+		</div>
+
+		<!-- Google Map and associated search input -->
+		<div id="container_map">
+
+			<!-- Search input -->
+			<div id="container_user_input">
+				Place: <input id="place" placeholder="Get the weather, anywhere in the world" type="text" />
+				Date: <input id="date" type="date" />
+				<button id="get_weather" class="button">Get Weather</button>
+			</div>
+
+			<!-- Google Map -->
+			<div id="map"></div>
+		</div>
+
+		<!-- Search history -->
+		<div id="container_history">
+
+			<!-- Search history sub-header -->
+			<h2>Search History</h2>
+
+			<!-- Search history clearing functionality -->
+			<button id="clear_history" class="button">Clear History</button>
+
+			<!-- Search history listing box -->
+			<div id="history">
+
+				<!-- Search history listing -->
+				<ul id="history_list"></ul>
+			</div>
+		</div>
+	</body>
+</html>
