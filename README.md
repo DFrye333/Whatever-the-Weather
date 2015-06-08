@@ -1,9 +1,9 @@
 Whatever the Weather
 ===
 **Author: David Frye**  
-**Date: 05-11-2015**  
+**Date: 06-08-2015**  
 **Version: 0.1**  
-[Live Demo](http://davidfrye.me/wtw/)  
+**[Live Demo](http://davidfrye.me/wtw/)**  
 
 ***Overview:***  
 	*Whatever the Weather* allows users to retrieve targeted weather forecast 
