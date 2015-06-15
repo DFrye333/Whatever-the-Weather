@@ -18,8 +18,6 @@ const DEBUG = false;
 // Test flag. Ensure that QUnit CSS and JS dependencies are included in HTML to run the tests.
 const TEST = false;
 
-// Frame update latency target (in milliseconds).
-const FRAME_TIME = 100;
 // Default weather place.
 const DEFAULT_PLACE = "Seattle, WA";
 // Default display mode.
@@ -27,10 +25,10 @@ const DEFAULT_DISPLAY_MODE = "temperature";
 // Default range mode.
 const DEFAULT_RANGE_MODE = "hourly";
 // Path to a text file containing a valid Forecast.io API key.
-const PATH_API_KEY = "/Whatever the Weather/resource/api_key.html";
+const PATH_API_KEY = "resource/api_key.html";
 // Path to a JSON file containing a test forecast.
-const PATH_FORECAST_TEST = "/Whatever the Weather/resource/example_forecast.json";
-// const PATH_FORECAST_TEST = "Whatever the Weather/resource/example_forecast_specific.json";
+const PATH_FORECAST_TEST = "resource/example_forecast.json";
+// const PATH_FORECAST_TEST = "resource/example_forecast_specific.json";
 
 // Google Map.
 var map;
@@ -61,25 +59,16 @@ var user_location;
 // User-inputted date.
 var user_date;
 
-// If dirty_display is true, display mode has changed and the view needs a refresh.
-var dirty_display;
-
 // HTML5 local storage.
 var local_storage;
 
-// Main loop.
-function update()
+// Update the data display chart.
+function display_update()
 {
-	// Check to see if display state has changed.
-	if (dirty_display)
-	{
-		// Process forecast into chart input.
-		visualization_data = process_forecast(forecast);
-		// Update chart visuals.
-		visualize(visualization_data, display_mode);
-
-		dirty_display = false;
-	}
+	// Process forecast into chart input.
+	visualization_data = process_forecast(forecast);
+	// Update chart visuals.
+	visualize(visualization_data, display_mode);
 }
 
 // Script setup of map, geocoder, callbacks, etc..
@@ -117,7 +106,7 @@ function initialize()
 						{
 							user_place = geocoder_result[0].formatted_address;
 							// Update the user's location with the browser location.
-							update_location(location);
+							location_update(location);
 						}
 					}
 				);
@@ -181,14 +170,14 @@ function geocode(place)
 			if (status == google.maps.GeocoderStatus.OK)
 			{
 				user_place = place;
-				update_location(geocoder_result[0].geometry.location);
+				location_update(geocoder_result[0].geometry.location);
 			}
 		}
 	);
 }
 
 // Update the user's current forecast location.
-function update_location(location)
+function location_update(location)
 {
 	user_location = location;
 	map.setCenter(user_location);
@@ -213,7 +202,7 @@ function get_weather(location)
 						// Update the last-queried forecast.
 						forecast = data;
 						// Update visual chart from forecast data.
-						dirty_display = true;
+						display_update();
 					}
 				);
 			}
@@ -236,7 +225,7 @@ function get_weather(location)
 						// Update the last-queried forecast.
 						forecast = data;
 						// Update visual chart from forecast data.
-						dirty_display = true;
+						display_update();
 					},
 					error : function(error)
 					{
@@ -303,12 +292,6 @@ function process_forecast(forecast)
 	else
 	{
 		$('#range_mode_daily').hide();
-
-		// Refresh the display, if necessary.
-		if (range_mode != DEFAULT_RANGE_MODE)
-		{
-			dirty_display = true;
-		}
 
 		// Revert range to default mode.
 		range_mode = DEFAULT_RANGE_MODE;
@@ -571,9 +554,6 @@ function history_clear()
 // Initialize all object callback settings.
 function initialize_callbacks()
 {
-	// Main loop update interval.
-	setInterval(update, FRAME_TIME);
-
 	// Google Maps double-click callback.
 	google.maps.event.addListener(map, "dblclick",
 		function(e)
@@ -623,7 +603,7 @@ function initialize_callbacks()
 				$('.display_mode').removeClass('selected');
 				$(this).addClass('selected');
 
-				dirty_display = true;
+				display_update();
 			}
 		}
 	);
@@ -638,7 +618,7 @@ function initialize_callbacks()
 				$('.range_mode').removeClass('selected');
 				$(this).addClass('selected');
 
-				dirty_display = true;
+				display_update();
 			}
 		}
 	);
